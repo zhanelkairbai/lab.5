@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Конвертер температуры</title>
+</head>
+<body>
+
+    <h1>Конвертер температуры</h1>
+
+    <input type="number" id="temperature" placeholder="Введите температуру">
+
+    <select id="from">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+
+    <select id="to">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+        <option value="kelvin">Kelvin</option>
+    </select>
+
+    <button onclick="convertTemperature()">Конвертировать</button>
+
+    <p id="result"></p>
+
+    <script>
+        function toCelsius(value, from) {
+            if (from === "celsius") {
+                return value;
+            } else if (from === "fahrenheit") {
+                return (value - 32) * 5 / 9;
+            } else {
+                return value - 273.15;
+            }
+        }
+
+        function fromCelsius(value, to) {
+            if (to === "celsius") {
+                return value;
+            } else if (to === "fahrenheit") {
+                return value * 9 / 5 + 32;
+            } else {
+                return value + 273.15;
+            }
+        }
+
+        function convertTemperature() {
+            const input = document.getElementById("temperature");
+            const result = document.getElementById("result");
+
+            if (input.value === "") {
+                result.textContent = "Введите температуру.";
+                return;
+            }
+
+            const value = Number(input.value);
+            const from = document.getElementById("from").value;
+            const to = document.getElementById("to").value;
+
+            const celsius = toCelsius(value, from);
+            const converted = fromCelsius(celsius, to);
+
+            result.textContent = "Результат: " + converted.toFixed(2) + "°";
+        }
+    </script>
+
+</body>
+</html>
